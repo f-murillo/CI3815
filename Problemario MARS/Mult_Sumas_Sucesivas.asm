@@ -1,67 +1,67 @@
-# Programa que multiplica dos números enteros ingresados por el usuario usando el algoritmo de sumas sucesivas
-# El programa asume que los valores ingresados son válidos
+# Programa que multiplica dos nÃºmeros enteros ingresados por el usuario usando el algoritmo de sumas sucesivas
+# El programa asume que los valores ingresados son vÃ¡lidos
 .data
-	mensaje_numero1: .asciiz "Ingresa el primer número: "
-	mensaje_numero2: .asciiz "Ingresa el segundo número: "
-	mensaje_resultado: .asciiz "El resultado de la multiplicación es: "
+	mensaje_numero1: .asciiz "Ingresa el primer nÃºmero: "
+	mensaje_numero2: .asciiz "Ingresa el segundo nÃºmero: "
+	mensaje_resultado: .asciiz "El resultado de la multiplicaciÃ³n es: "
 
 .text
 	main:
-		# Imprimir mensaje para ingresar el primer número
+		# Imprimir mensaje para ingresar el primer nÃºmero
 		li $v0, 4                  
     		la $a0, mensaje_numero1
     		syscall
 
-		# Leer el primer número 
+		# Leer el primer nÃºmero 
     		li $v0, 5                  
     		syscall
-    		move $t0, $v0              # Mover el número a $t0.
+    		move $t0, $v0              # Mover el nÃºmero a $t0.
     		
-    		# Imprimir mensaje para ingresar el segundo número
+    		# Imprimir mensaje para ingresar el segundo nÃºmero
     		li $v0, 4                  
     		la $a0, mensaje_numero2
     		syscall
 
-		# Leer el segundo número
+		# Leer el segundo nÃºmero
     		li $v0, 5                  
     		syscall
-    		move $t1, $v0              # Mover el número a $t1.
+    		move $t1, $v0              # Mover el nÃºmero a $t1.
 
     		li $t2, 0                  # Inicializar la suma a 0
     		
-    		bltz $t0, suma_sucesiva_neg1	# Si el primer número es negativo
+    		bltz $t0, suma_sucesiva_neg1	# Si el primer nÃºmero es negativo
     		bltz $t1, suma_sucesiva_neg2	# Si el primero no es negativo pero el segundo si lo es
     		
-    		# Si el primer número es negativo
+    		# Si el primer nÃºmero es negativo
     		suma_sucesiva_neg1:
-    			bltz $t1, pre_suma_sucesiva_pos   # Si ambos números son negativos, ir a subrutina que los transforma a positivos
+    			bltz $t1, pre_suma_sucesiva_pos   # Si ambos nÃºmeros son negativos, ir a subrutina que los transforma a positivos
     			
-    			# Efectuar multiplicación por sumas sucesivas (con primer número negativo)
-    			beqz $t1, fin      # Si el segundo número es cero, termina el bucle
-    			add $t2, $t2, $t0  # Sumar el primer número 
-    			sub $t1, $t1, 1    # RDecrementar el segundo número
+    			# Efectuar multiplicaciÃ³n por sumas sucesivas (con primer nÃºmero negativo)
+    			beqz $t1, fin      # Si el segundo nÃºmero es cero, termina el bucle
+    			add $t2, $t2, $t0  # Sumar el primer nÃºmero 
+    			sub $t1, $t1, 1    # Decrementar el segundo nÃºmero
     			j suma_sucesiva_neg1
     				
     		suma_sucesiva_neg2:
-    			# Si se llegó a esta subrutina, solo el segundo número es negativo
-    			# Efectuar multiplicación por sumas sucesivas (con segundo número negativo)
-    			beqz $t0, fin  	    # Si el primer número es cero, termina el bucle
-    			add $t2, $t2, $t1  # Sumar el segundo número 
-    			sub $t0, $t0, 1    # Decrementar el primer número
+    			# Si se llegÃ³ a esta subrutina, solo el segundo nÃºmero es negativo
+    			# Efectuar multiplicaciÃ³n por sumas sucesivas (con segundo nÃºmero negativo)
+    			beqz $t0, fin  	    # Si el primer nÃºmero es cero, termina el bucle
+    			add $t2, $t2, $t1  # Sumar el segundo nÃºmero 
+    			sub $t0, $t0, 1    # Decrementar el primer nÃºmero
     			j suma_sucesiva_neg2	
     			
     		pre_suma_sucesiva_pos:
-    			# Si se llegó a esta subrutina, ambos números son negativos
-    			# Multiplicar ambos números por -1, y saltar a la multiplicación por sumas sucesivas positiva
+    			# Si se llegÃ³ a esta subrutina, ambos nÃºmeros son negativos
+    			# Multiplicar ambos nÃºmeros por -1, y saltar a la multiplicaciÃ³n por sumas sucesivas positiva
     			mul $t0, $t0, -1
     			mul $t1, $t1, -1
     			j suma_sucesiva_pos
     				
     		suma_sucesiva_pos:
-    			# Si se llegó a esta subrutina, ambos números son positivos
-    			beqz $t0, fin 	    # Si el primer número es cero, termina el bucle
-    			add $t2, $t2, $t1  # Sumar el segundo número
-    			subi $t0, $t0, 1   # Decrementar el primer número
+    			# Si se llegÃ³ a esta subrutina, ambos nÃºmeros son positivos
+    			beqz $t0, fin 	    # Si el primer nÃºmero es cero, termina el bucle
+    			add $t2, $t2, $t1  # Sumar el segundo nÃºmero
+    			subi $t0, $t0, 1   # Decrementar el primer nÃºmero
     			j suma_sucesiva_pos    
     	
     		fin:
