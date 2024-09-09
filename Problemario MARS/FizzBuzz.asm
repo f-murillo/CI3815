@@ -1,7 +1,7 @@
-# Programa que resuelve el reto fizzbuzz para los primeros n números, donde el número n es ingresado por el usuario
-# El programa asume que el valor ingresado por el usuario es válido
+# Programa que resuelve el reto fizzbuzz para los primeros n nÃºmeros, donde el nÃºmero n es ingresado por el usuario
+# El programa asume que el valor ingresado por el usuario es vÃ¡lido (un entero positivo)
 .data
-	mensaje_numero: .asciiz "Ingresa un número: "
+	mensaje_numero: .asciiz "Ingresa un nÃºmero: "
 	fizz: .asciiz "fizz\n"
 	buzz: .asciiz "buzz\n"
 	fizzbuzz: .asciiz "fizzbuzz\n"
@@ -9,12 +9,12 @@
 
 .text
 	main:
-    		# Imprimir mensaje para ingresar número
+    		# Imprimir mensaje para ingresar nÃºmero
     		li $v0, 4                  
     		la $a0, mensaje_numero
     		syscall
 
-    		# Leer el número
+    		# Leer el nÃºmero
     		li $v0, 5       
     		syscall
     		move $t0, $v0   
@@ -27,33 +27,33 @@
     			j fin
 
 		check:
-    			# Verificar si el número es divisible entre 3 y 5
-    			# División entre 3
+    			# Verificar si el nÃºmero es divisible entre 3 y 5
+    			# DivisiÃ³n entre 3
     			li $t2, 3
     			div $t1, $t2
-    			mfhi $t4     # Residuo de la división
+    			mfhi $t4     # Residuo de la divisiÃ³n
     
-   			# División entre 5
+   			# DivisiÃ³n entre 5
     			li $t3, 5
     			div $t1, $t3
-    			mfhi $t5    # Rediduo de la división
+    			mfhi $t5    # Rediduo de la divisiÃ³n
     
-   	 		beqz $t4, check_fizzbuzz  # Si el residuo de la división entre 3 es 0, es divisible entre 3. Ir a check_fizzbuzz a ver si 
-   	 		                          # también es divisible entre 5
+   	 		beqz $t4, check_fizzbuzz  # Si el residuo de la divisiÃ³n entre 3 es 0, es divisible entre 3. Ir a check_fizzbuzz a ver si 
+   	 		                          # tambiÃ©n es divisible entre 5
    	 		                         
-    			beqz $t5, imprimir_buzz  # Si la condición anterior no se cumple, el número no es divisible entre 3; pero si el residuo
-    			 	                 # de la división entre 5 es 0, es divisible entre 5. Imprimir buzz
+    			beqz $t5, imprimir_buzz  # Si la condiciÃ³n anterior no se cumple, el nÃºmero no es divisible entre 3; pero si el residuo
+    			 	                 # de la divisiÃ³n entre 5 es 0, es divisible entre 5. Imprimir buzz
     			 	                 
-    			j imprimir_numero    # Si no si cumplen las condiciones anteriores, entones el número no es divisible entre 3 ni 5. 
-    					     # Imprimir el número
+    			j imprimir_numero    # Si no si cumplen las condiciones anteriores, entones el nÃºmero no es divisible entre 3 ni 5. 
+    					     # Imprimir el nÃºmero
 
-		# Verificar si el número es divisible entre 3 y 5
-		# Recordar que solo se accede a esta subrutina si el número es divisible entre 3
+		# Verificar si el nÃºmero es divisible entre 3 y 5
+		# Recordar que solo se accede a esta subrutina si el nÃºmero es divisible entre 3
 		check_fizzbuzz:
-    			beqz $t5, imprimir_fizzbuzz # Si el residuo de división entre 5 es 0, es divisible entre 5. Como también es divisible
+    			beqz $t5, imprimir_fizzbuzz # Si el residuo de divisiÃ³n entre 5 es 0, es divisible entre 5. Como tambiÃ©n es divisible
     						     # entre 3, imprime fizzbuzz
     						
-    			j imprimir_fizz # Si la condición anterior no se cumple, solo es divisible entre 3; imprimir fizz
+    			j imprimir_fizz # Si la condiciÃ³n anterior no se cumple, solo es divisible entre 3; imprimir fizz
 
 		# Imprimir fizz
 		imprimir_fizz:
@@ -76,13 +76,13 @@
     			syscall
     			j continue
 
-		# Imprimir el número
+		# Imprimir el nÃºmero
 		imprimir_numero:
     			li $v0, 1
     			move $a0, $t1
     			syscall
     			
-    			# Imprimir salto de línea
+    			# Imprimir salto de lÃ­nea
     			li $v0, 4
     			la $a0, salto
     			syscall
