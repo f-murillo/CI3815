@@ -19,7 +19,7 @@
     		syscall
     		move $t0, $v0   
 	
-    		li $t1, 1 # Inicializar iterador en 1
+    		li $t1, 1 # Inicializar el iterador en 1
 
 		# Bucle que resuelve el reto fizzbuzz
 		bucle:
@@ -42,13 +42,12 @@
    	 		                          # también es divisible entre 5
    	 		                         
     			beqz $t5, imprimir_buzz  # Si la condición anterior no se cumple, el número no es divisible entre 3; pero si el residuo
-    			 	                 # de la división entre 5 es 0, es divisible entre 5. Imprimir buzz
+    			 	                 # de la división entre 5 es 0, entonces es divisible entre 5. Imprimir buzz
     			 	                 
-    			j imprimir_numero    # Si no si cumplen las condiciones anteriores, entones el número no es divisible entre 3 ni 5. 
+    			j imprimir_numero    # Si no si cumple ninguna de las condiciones anteriores, entones el número no es divisible entre 3 ni 5. 
     					     # Imprimir el número
 
-		# Verificar si el número es divisible entre 3 y 5
-		# Recordar que solo se accede a esta subrutina si el número es divisible entre 3
+		# Verificar si el número es divisible entre 3 y 5 (recordar que solo se accede a esta subrutina si el número es divisible entre 3)
 		check_fizzbuzz:
     			beqz $t5, imprimir_fizzbuzz # Si el residuo de división entre 5 es 0, es divisible entre 5. Como también es divisible
     						     # entre 3, imprime fizzbuzz
