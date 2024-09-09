@@ -1,5 +1,5 @@
 # Programa que multiplica dos números enteros ingresados por el usuario usando el algoritmo de sumas sucesivas
-# El programa asume que los valores ingresados son válidos
+# El programa asume que los valores ingresados son válidos (dos enteros)
 .data
 	mensaje_numero1: .asciiz "Ingresa el primer número: "
 	mensaje_numero2: .asciiz "Ingresa el segundo número: "
