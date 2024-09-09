@@ -1,24 +1,24 @@
 # Funcion que calcula el factorial de un numero (menor o igual a 12) de manera iterativa
-# El límite es 12 porque es el último número para el cual su factorial es menor a (2^31)-1, por lo que números más grandes darán resultados erróneos
-# El programa asume que la entrada es válida
+# El lÃ­mite es 12 porque es el Ãºltimo nÃºmero para el cual su factorial es menor a (2^31)-1, por lo que nÃºmeros mÃ¡s grandes darÃ¡n resultados errÃ³neos
+# El programa asume que la entrada es vÃ¡lida (un entero positivo)
 .data
-	msg_numero: .asciiz "Ingresa un número entre 0 y 12: "
+	msg_numero: .asciiz "Ingresa un nÃºmero entre 0 y 12: "
 	msg_resultado1: .asciiz "El factorial de "
 	msg_resultado2: .asciiz " es: "
 	
 .text 
 	main:
-		# Imprimir mensaje para ingresar el número
+		# Imprimir mensaje para ingresar el nÃºmero
 		li $v0, 4                  
     		la $a0, msg_numero
     		syscall
     		
-    		# Leer el número 
+    		# Leer el nÃºmero 
     		li $v0, 5                  
     		syscall
-    		move $t0, $v0              # Mover el número a $t0
+    		move $t0, $v0              # Mover el nÃºmero a $t0
     		
-    		move $t2, $t0		    # Guardar número original para imprimirlo al final
+    		move $t2, $t0		    # Guardar nÃºmero original para imprimirlo al final
     		
 		li $t1 1		   # Inicializar respuesta en 1
 	
@@ -33,7 +33,7 @@
 			la $a0, msg_resultado1
 			syscall
 			
-			#Imprimir número original
+			#Imprimir nÃºmero original
 			li $v0, 1
 			move $a0, $t2
 			syscall
