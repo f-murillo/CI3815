@@ -35,7 +35,7 @@
 ############################################ METODO PRINCIPAL #######################################################################
 	main:	
 	
-		#Cargar melodias del melodies.asm
+############################# Cargar melodias del melodies.asm ###############################################################
 		cargar_melodias:
 				li $s0, 8
 				li $s1, 16
@@ -102,7 +102,7 @@
 					addi $a3, $a3, 1
 					lb $t1, ($a3)
 					beq $t1, 0x0000000a, end_r2	#si es un salto de linea, el siguiente caracter es una nota
-					move $t3, $t1	#recuperamos el 2do digito de existir
+					move $t3, $t1	#recuperamos el 2do digito (de existir)
 					concat ($t2, $t3, $s0)	#concatenamos ambos digitos en un solo registro
 				end_r2:	
 					sw $t2, str_int	
@@ -117,6 +117,7 @@
 					lb $t1, ($a3)
 					j loop_r1
 			end_recuperador:
+				# Hacemos lo mismo para el resto de melodias (si existen, sino no se hace nada)
 				add $s2, $s2, 1
 				la $a3, M2
 				beq $s2, 2, conseguir_head
@@ -132,7 +133,7 @@
 				beq $s2, 7, conseguir_head
 				la $a3, M8
 				beq $s2, 8, conseguir_head
-				
+################################################################################################################################				
         	# Mostrar menu
         	menu:
         		print_label (msg_add)
@@ -146,9 +147,9 @@
         	beq $t0, 2, melodias
         	beq $t0, 3, melodias 
         	beq $t0, 4, exit     
-        	j error              
+        	j error # En caso de haber ingresado una opcion invalida             
 
-		# Manejador del error de selecci�n de opcion
+		# Manejador del error de selección de opcion
         	error:
             		print_label (msg_err)
             		j menu
@@ -157,11 +158,11 @@
     		exit:
         		terminate
 
-############################################ METODOS ##########################################################################
+############################################ RESTO DE METODOS ##########################################################################
 	# Seleccionar el espacio para agregar la melodia
 	selecciona_espacio:
     		la $t4, heads_array  # Cargar base del arreglo de cabezas de listas
-    		li $t0, 0  # �ndice del arreglo (de 0 a 7)
+    		li $t0, 0  # ï¿½ndice del arreglo (de 0 a 7)
     		# Ciclo para verificar melodias disponibles
     		espacios_disponibles:
         		beq $t0, 8, fin_espacios_disponibles  # Si hemos recorrido todas las posiciones, salimos del bucle
@@ -181,7 +182,7 @@
         			
         			j continue_espacio # Salta a continuar el programa
 
-    			# Pasar a la siguiente posici�n. Incrementa el indice y vuelve al ciclo disponibles
+    			# Pasar a la siguiente posiciï¿½n. Incrementa el indice y vuelve al ciclo disponibles
     			siguiente_posicion:
         			addi $t0, $t0, 1
         			j espacios_disponibles
@@ -243,20 +244,21 @@
     			jal agrega_nota    
     			j agrega_melodia
     			
-    			# Manejar error de duraci�n ingresada menor o igual a cero
+    			# Manejar error de duracion ingresada 
     			error_duracion:
     				print_label (msg_error_dur)
     				j agrega_melodia
     			
-    			#Manejar error de nota no valida
+    			# Manejar error de nota no valida
     			nota_invalida:
     				print_label (msg_err_note)
     				j agrega_melodia
+			# Manejar numero maximo de notas ingresadas
     			max_notas:
     				print_label (msg_max_note)
     				j menu	
 
-		# Agregar la nota a la melod�a
+		# Agregar la nota a la melodia
 		agrega_nota:
     			# Reservar memoria para el nuevo nodo (16 bytes para el string y puntero + 4 bytes para el entero, que es la duracion)
     			li $v0, 9       
@@ -294,7 +296,7 @@
     			# Encontrar el ultimo nodo de la lista
 			find_last:
     				lw $t3, 12($t1)      # Cargar el puntero al siguiente nodo
-   				beqz $t3, agregar    # Si es NULL, hemos encontrado el �ltimo nodo
+   				beqz $t3, agregar    # Si es NULL, hemos encontrado el ï¿½ltimo nodo
     				move $t1, $t3        # Mover al siguiente nodo
     				j find_last
 
@@ -320,6 +322,7 @@
         		la $t4, heads_array  # Cargar base del arreglo de cabezas de listas
         		li $t5, 1 # Indicador de que todas las listas estan vacias (inicialmente en 1, true)
     			li $t0, 0  # indice del arreglo (de 0 a 7)
+
     			# Ciclo para verificar melodias disponibles
 			ver_disponibles:
     				beq $t0, 8, fin_melodias  # Si hemos recorrido todas las posiciones, salimos del bucle
@@ -382,7 +385,7 @@
     				
     			# Manejar error de seleccion de la melodia
 			error_ver:
-				# Imprimir mensaje de error y volver a la selecci�n de la melod�a
+				# Imprimir mensaje de error y volver a la selecciï¿½n de la melodï¿½a
     				print_label (msg_err_rep)
     				j melodias
     			
