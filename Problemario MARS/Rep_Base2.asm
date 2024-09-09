@@ -1,20 +1,20 @@
-# Programa que convierte un n鷐ero decimal positivo a binario usando 4 bytes (32 bits)
-# El programa asume que el valor ingresado por el usuario es v醠ido
+# Programa que convierte un n煤mero entero positivo en base 10 a base binaria usando 4 bytes (32 bits)
+# El programa asume que el valor ingresado por el usuario es v谩lido
 .data
-	mensaje_numero: .asciiz "Ingrese un n鷐ero entero: "
-	mensaje_binario: .asciiz "La representaci髇 en base 2 es: "
+	mensaje_numero: .asciiz "Ingrese un n煤mero entero: "
+	mensaje_binario: .asciiz "La representaci贸n en base 2 es: "
 	salto: .asciiz "\n"
 	representacion_binaria: .space 32  # Reserva espacio para 32 bits.
 
 .text
 	main:
-    		li $v0, 4                  # Imprime mensaje para ingresar el n鷐ero.
+    		li $v0, 4                  # Imprime mensaje para ingresar el n煤mero.
     		la $a0, mensaje_numero
     		syscall
 
-    		li $v0, 5                  # Leer el n鷐ero entero.
+    		li $v0, 5                  # Leer el n煤mero entero.
     		syscall
-    		move $t0, $v0              # Mover el n鷐ero a $t0.
+    		move $t0, $v0              # Mover el n煤mero a $t0.
 
     		# Inicializa un arreglo con 32 ceros.
     		la $a1, representacion_binaria
@@ -30,40 +30,40 @@
     		# Restablece $a1 al inicio del arreglo.
     		la $a1, representacion_binaria + 31
 
-    		# Bucle para convertir el n鷐ero a binario.
+    		# Bucle para convertir el n煤mero a binario.
 		convertir:
-    			beqz $t0, imprime_binario    # Si el n鷐ero es 0, salta a imprimir la representaci髇 binaria.
+    			beqz $t0, imprime_binario    # Si el n煤mero es 0, salta a imprimir la representaci贸n binaria.
     			li $t1, 2                  # Establece el divisor (2).
-    			div $t0, $t1               # Divide el n鷐ero entre 2.
+    			div $t0, $t1               # Divide el n煤mero entre 2.
     			mfhi $t2                   # Mueve el residuo (0 o 1) a $t2.
 
     			# Almacena el bit en el arreglo.
     			sb $t2, 0($a1)             # Almacena el bit en el arreglo.
     			subi $a1, $a1, 1         # Mueve el puntero al siguiente espacio en el arreglo.
 
-    			mflo $t0                   # Mueve el cociente de vuelta a $t0 para la pr髕ima iteraci髇.
-    			j convertir            # Contin鷄 el bucle.
+    			mflo $t0                   # Mueve el cociente de vuelta a $t0 para la pr贸xima iteraci贸n.
+    			j convertir            # Contin煤a el bucle.
 
 		imprime_binario:
-			# Imprime mensaje para la representaci髇 binaria.
+			# Imprime mensaje para la representaci贸n binaria.
     			li $v0, 4                  
     			la $a0, mensaje_binario
     			syscall
 
-    			# Imprimir la representaci髇 binaria de 32 bits.
+    			# Imprimir la representaci贸n binaria de 32 bits.
     			la $a1, representacion_binaria
     			li $t3, 32                 # Contador para imprimir el arreglo
     		
     		# Imprimir el arreglo	
 		imprimir:
     			lb $a0, 0($a1)             # Cargar el bit del arreglo
-    			addiu $a0, $a0, 48         # Convertit el bit a su representaci髇 ASCII
+    			addiu $a0, $a0, 48         # Convertit el bit a su representaci贸n ASCII
     			li $v0, 11                 # Imprimir el bit
     			syscall
 
     			addiu $a1, $a1, 1          # Mover el puntero al siguiente bit en el arreglo
     			subi $t3, $t3, 1
-    			bnez $t3, imprimir      # Continuar el bucle si a鷑 quedan bits por imprimir
+    			bnez $t3, imprimir      # Continuar el bucle si a煤n quedan bits por imprimir
 
 			# Imprimir salto de linea
     			li $v0, 4                  
