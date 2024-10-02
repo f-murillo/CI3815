@@ -1,8 +1,8 @@
-# Programa que resuelve el reto fizzbuzz para los primeros n n鷐eros, donde el n鷐ero n es ingresado por el usuario
-# El programa asume que el valor ingresado por el usuario es v醠ido
-# Esta versi髇 es m醩 eficiente en tiempo de ejecuci髇 que la versi髇 1, pero hace m醩 uso de memoria
+# Programa que resuelve el reto fizzbuzz para los primeros n n煤meros, donde el n煤mero n es ingresado por el usuario
+# El programa asume que el valor ingresado por el usuario es v谩lido
+# Esta versi贸n es m谩s eficiente en tiempo de ejecuci贸n que la versi贸n 1, pero hace m谩s uso de memoria
 .data
-	mensaje_numero: .asciiz "Ingresa un n鷐ero: "
+	mensaje_numero: .asciiz "Ingresa un n煤mero: "
 	fizz: .asciiz "fizz\n"
 	buzz: .asciiz "buzz\n"
 	fizzbuzz: .asciiz "fizzbuzz\n"
@@ -10,12 +10,12 @@
 
 .text
 	main:
-    		# Imprimir mensaje para ingresar n鷐ero
+    		# Imprimir mensaje para ingresar n煤mero
     		li $v0, 4                  
     		la $a0, mensaje_numero
     		syscall
 
-    		# Leer el n鷐ero
+    		# Leer el n煤mero
     		li $v0, 5       
     		syscall
     		move $t0, $v0   
@@ -28,30 +28,30 @@
     			j fin
 
 		check:
-    			# Verificar si el n鷐ero es divisible entre 3 y 5
-    			# Divisi髇 entre 3
+    			# Verificar si el n煤mero es divisible entre 3, 5 y 15
+    			# Divisi贸n entre 3
     			li $t2, 3
     			div $t1, $t2
-    			mfhi $t4     # Residuo de la divisi髇
+    			mfhi $t4     # Residuo de la divisi贸n
     
-   			# Divisi髇 entre 5
+   			# Divisi贸n entre 5
     			li $t3, 5
     			div $t1, $t3
-    			mfhi $t5    # Rediduo de la divisi髇
+    			mfhi $t5    # Rediduo de la divisi贸n
     			
-    			# Divisi髇 entre 15
+    			# Divisi贸n entre 15
     			li $t6, 15
     			div $t1, $t6
-    			mfhi $t7    # Rediduo de la divisi髇
+    			mfhi $t7    # Rediduo de la divisi贸n
     			
-    			beqz $t7, imprimir_fizzbuzz
-   	 		beqz $t4, imprimir_fizz  # Si el residuo de la divisi髇 entre 3 es 0
+    			beqz $t7, imprimir_fizzbuzz # Recordar que si c es divisible por a y por b, entonces c es divisible por a*b
+   	 		beqz $t4, imprimir_fizz  # Si el residuo de la divisi贸n entre 3 es 0
    	 		                         
-    			beqz $t5, imprimir_buzz  # Si la condici髇 anterior no se cumple, el n鷐ero no es divisible entre 3; pero si el residuo
-    			 	                 # de la divisi髇 entre 5 es 0, es divisible entre 5. Imprimir buzz
+    			beqz $t5, imprimir_buzz  # Si la condici贸n anterior no se cumple, pero si el residuo de la divisi贸n entre 5 es 0,
+						 # es divisible entre 5. Imprimir buzz
     			 	                 
-    			j imprimir_numero    # Si no si cumplen las condiciones anteriores, entones el n鷐ero no es divisible entre 3 ni 5. 
-    					     # Imprimir el n鷐ero
+    			j imprimir_numero    # Si no si cumplen las condiciones anteriores, entones el n煤mero no es divisible entre 3, 5 ni 15. 
+    					     # Imprimir el n煤mero
 
 		# Imprimir fizz
 		imprimir_fizz:
@@ -74,13 +74,13 @@
     			syscall
     			j continue
 
-		# Imprimir el n鷐ero
+		# Imprimir el n煤mero
 		imprimir_numero:
     			li $v0, 1
     			move $a0, $t1
     			syscall
     			
-    			# Imprimir salto de l韓ea
+    			# Imprimir salto de l铆nea
     			li $v0, 4
     			la $a0, salto
     			syscall
