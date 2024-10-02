@@ -1,5 +1,5 @@
 # Programa que resuelve el reto fizzbuzz para los primeros n números, donde el número n es ingresado por el usuario
-# El programa asume que el valor ingresado por el usuario es válido
+# El programa asume que el valor ingresado por el usuario es válido (n es un entero positivo)
 # Esta versión es más eficiente en tiempo de ejecución que la versión 1, pero hace más uso de memoria
 .data
 	mensaje_numero: .asciiz "Ingresa un número: "
