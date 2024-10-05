@@ -1,7 +1,7 @@
-# Programa que pide al usuario ingresar 15 enteros, los almacena en un vector y luego buasca un número dado en dicho vector, 
-# y devuelve su posición. Si el número a buscar tiene duplicados, devuelve la posición del último duplicado.
-# El programa asume que los valores ingresados son válidos
-.data
+# Programa que pide al usuario ingresar 15 enteros, los almacena en un vector y luego buasca un nÃºmero dado en dicho vector, 
+# y devuelve su posiciÃ³n. Si el nÃºmero a buscar tiene duplicados, devuelve la posiciÃ³n del Ãºltimo duplicado.
+# El programa asume que los valores ingresados son vÃ¡lidos (15 enteros)
+.data 
 	vector: .space 60 # Reserva espacio para 15 enteros (4 bytes cada uno)
 	mensaje_input: .asciiz "Introduce un numero: "
 	mensaje_buscar: .asciiz "Introduce el numero a buscar: "
@@ -12,11 +12,11 @@
 	salto: .asciiz "\n"
 .text
 	main:
-    		# Leer los 15 números del vector
+    		# Leer los 15 nÃºmeros del vector
     		li $t0, 0 # Contador para el bucle
     		li $t1, 15 # Total de elementos
-    		lw $t7, t_encontrado  # Tiempo en que fue encontrado el número
-    		la $t2, vector # Dirección base del vector
+    		lw $t7, t_encontrado  # Tiempo en que fue encontrado el nÃºmero
+    		la $t2, vector # DirecciÃ³n base del vector
 
 		bucle_lectura:
     			li $v0, 4 # syscall para imprimir string
@@ -26,40 +26,40 @@
     			li $v0, 5 # syscall para leer un entero
     			syscall
 
-    			sw $v0, 0($t2) # Guarda el entero leído en el vector
+    			sw $v0, 0($t2) # Guarda el entero leÃ­do en el vector
     			addiu $t2, $t2, 4 # Avanza al siguiente espacio en el vector
     			addiu $t0, $t0, 1
-    			blt $t0, $t1, bucle_lectura # Repite hasta tener 15 números
+    			blt $t0, $t1, bucle_lectura # Repite hasta tener 15 nÃºmeros
 
-    		# Imprimir mensaje para ingresar número a buscar
+    		# Imprimir mensaje para ingresar nÃºmero a buscar
     		li $v0, 4
     		la $a0, mensaje_buscar
     		syscall
-		# Leer número a buscar
+		# Leer nÃºmero a buscar
     		li $v0, 5
     		syscall
-    		move $t3, $v0 # Guarda el número a buscar en $t3
+    		move $t3, $v0 # Guarda el nÃºmero a buscar en $t3
 
-    		# Buscar el número en el vector
+    		# Buscar el nÃºmero en el vector
     		li $t0, 0 # Reinicia el contador
-    		la $t2, vector # Reinicia la dirección base del vector
-    		li $t4, -1 # Inicializa la posición del último encontrado como -1
+    		la $t2, vector # Reinicia la direcciÃ³n base del vector
+    		li $t4, -1 # Inicializa la posiciÃ³n del Ãºltimo encontrado como -1
     		li $t5, 0 # Contador de iteraciones
 
 		bucle_busqueda:
     			lw $t6, 0($t2) # Cargar el valor actual del vector
     			addiu $t5, $t5, 1 # Incrementar el contador de iteraciones
-    			beq $t6, $t3, encontrado # Si se encuentra el número, salta a encontrado
+    			beq $t6, $t3, encontrado # Si se encuentra el nÃºmero, salta a encontrado
     			addiu $t2, $t2, 4 # Avanza al siguiente entero en el vector
    			addiu $t0, $t0, 1
     			blt $t0, $t1, bucle_busqueda # Repite hasta el final del vector
 
-    			beq $t4, -1, no_encontrado   # Si la posición sigue siendo -1, el número no se encuentra
+    			beq $t4, -1, no_encontrado   # Si la posiciÃ³n sigue siendo -1, el nÃºmero no se encuentra
     
     			j fin_bucle  # Salir del bucle
 
 		no_encontrado:
-			# Imprimir mensaje de que no se encontró el número, y saltar al fin del programa
+			# Imprimir mensaje de que no se encontrÃ³ el nÃºmero, y saltar al fin del programa
     			li $v0, 4
     			la $a0, mensaje_no_encontrado
     			syscall
@@ -67,15 +67,15 @@
     			j fin_programa
 
 		encontrado:
-    			move $t4, $t0 # Actualiza la posición del último encontrado
+    			move $t4, $t0 # Actualiza la posiciÃ³n del Ãºltimo encontrado
 			move $t7, $t5 # Establecer como tiempo de encontrado la iteracion actual
-    			# Continúa buscando en caso de duplicados
+    			# ContinÃºa buscando en caso de duplicados
     			addiu $t2, $t2, 4
     			addiu $t0, $t0, 1
     			blt $t0, $t1, bucle_busqueda
 
 		fin_bucle:
-   			 # Imprimir mensaje de número encontrado
+   			 # Imprimir mensaje de nÃºmero encontrado
     			li $v0, 4
     			la $a0, mensaje_encontrado
     			syscall
@@ -85,17 +85,17 @@
     			move $a0, $t4
     			syscall
 
-    			# Imprimir la posición del último número encontrado
+    			# Imprimir la posiciÃ³n del Ãºltimo nÃºmero encontrado
     			li $v0, 4
     			la $a0, salto
     			syscall
 
-    			# Imprimir mensaje de número de iteraciones
+    			# Imprimir mensaje de nÃºmero de iteraciones
     			li $v0, 4
     			la $a0, mensaje_iteraciones
     			syscall
     			
-			# Imprimir número de iteraciones
+			# Imprimir nÃºmero de iteraciones
     			li $v0, 1
     			move $a0, $t7
     			syscall
