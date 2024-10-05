@@ -2,7 +2,7 @@
 # y devuelve su posición. Si el número a buscar tiene duplicados, devuelve la posición del último duplicado.
 # El programa asume que los valores ingresados son válidos (15 enteros)
 .data 
-	vector: .space 60 # Reserva espacio para 15 enteros (4 bytes cada uno)
+	vector: .space 60 # Reservar espacio para los 15 enteros (4 bytes cada uno)
 	mensaje_input: .asciiz "Introduce un numero: "
 	mensaje_buscar: .asciiz "Introduce el numero a buscar: "
 	mensaje_encontrado: .asciiz "Numero encontrado en la posicion: "
