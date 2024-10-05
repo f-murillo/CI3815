@@ -1,5 +1,6 @@
 # Funcion que calcula el factorial de un numero (menor o igual a 12) de manera iterativa
-# El límite es 12 porque es el último número para el cual su factorial es menor a (2^31)-1, por lo que números más grandes darán resultados erróneos
+# El límite es 12 porque es el último número para el cual su factorial es menor a (2^31)-1 (entero mas grande que se puede representar con 32 bits),
+# por lo que números más grandes darán resultados erróneos
 # El programa asume que la entrada es válida (un entero positivo)
 .data
 	msg_numero: .asciiz "Ingresa un número entre 0 y 12: "
